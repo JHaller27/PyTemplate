@@ -1,8 +1,17 @@
+import os
+
+
 def main():
     data_dir = '..'
     output_dir = '..'
-    template_names = ['hello.template', 'ssh.template']
-    variables_names = ['hello.vars']
+    template_names = []
+    variables_names = []
+
+    if len(template_names) == 0:
+        template_names = search_for_files(data_dir, '.template')
+
+    if len(variables_names) == 0:
+        variables_names = search_for_files(data_dir, '.vars')
 
     for t_name in template_names:
         for v_name in variables_names:
@@ -32,6 +41,14 @@ def get_output_file_name(t_name: str, v_name: str, output_extension='.txt') -> s
     out_name += output_extension
 
     return out_name
+
+
+def search_for_files(directory: str, extension: str):
+    files = []
+    for file in os.listdir(directory):
+        if file.endswith(extension):
+            files.append(file)
+    return files
 
 
 def generate(output_name: str, template_name: str, variables_name, delimiter_pre='<', delimiter_post='>') -> None:
