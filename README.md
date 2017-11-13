@@ -8,7 +8,7 @@ the cross-product of templates x vars.
 
 | Feature | Planned | In development | Current |
 |:--------|:--------|:---------------|:--------|
-| Configurable via command line arguments | x | | |
+| Configurable via command line arguments | | x | |
 | Custom template delimiters (default: "<>") | | | x |
 | Search directory for templates/configs | | | x |
 | Specify output directory | | | x |

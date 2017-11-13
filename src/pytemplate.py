@@ -8,6 +8,8 @@ def main():
     template_names = []
     variables_names = []
 
+    # ArgParse setup
+
     # Find files if name list is empty
     if len(template_names) == 0:
         template_names = search_for_files(data_dir, '.template')
