@@ -24,7 +24,7 @@ Hello, <name>!
 
 `Hello.var`
 ```
-name="world"
+name=world
 ```
 
 ...would produce...
