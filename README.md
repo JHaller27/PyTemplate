@@ -11,8 +11,8 @@ the cross-product of templates x vars.
 | Configurable via command line arguments | x | | |
 | Custom template delimiters (default: "<>") | x | | |
 | Search directory for templates/configs | x | | |
-| Specify output directory | x | | |
-| Multiple files | | x | |
+| Specify output directory | | | x |
+| Multiple files | | | x |
 
 ## Example
 
