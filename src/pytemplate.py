@@ -9,7 +9,7 @@ def main():
     # Build replacements dictionary
     replacements = {}
     for line in variables_file:
-        (key, value) = line.split('=')
+        (key, value) = line.strip().split('=')
         replacements[delimiter_pre + key + delimiter_post] = value
     variables_file.close()
 
