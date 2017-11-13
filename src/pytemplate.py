@@ -2,17 +2,20 @@ import os
 
 
 def main():
+    # Defaults
     data_dir = '..'
     output_dir = '..'
     template_names = []
     variables_names = []
 
+    # Find files if name list is empty
     if len(template_names) == 0:
         template_names = search_for_files(data_dir, '.template')
 
     if len(variables_names) == 0:
         variables_names = search_for_files(data_dir, '.vars')
 
+    # Create output files from cross-product of other files
     for t_name in template_names:
         for v_name in variables_names:
             out_name = get_output_file_name(t_name, v_name)
