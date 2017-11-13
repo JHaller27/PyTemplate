@@ -1,14 +1,37 @@
 def main():
     data_dir = '..'
-    template_names = ['hello.template']
+    output_dir = '..'
+    template_names = ['hello.template', 'ssh.template']
     variables_names = ['hello.vars']
-    output_name = '../hello.txt'
 
     for t_name in template_names:
         for v_name in variables_names:
+            out_name = get_output_file_name(t_name, v_name)
+
             t_name = data_dir + '/' + t_name
             v_name = data_dir + '/' + v_name
-            generate(output_name, t_name, v_name)
+            out_name = output_dir + '/' + out_name
+            generate(out_name, t_name, v_name)
+
+
+def get_output_file_name(t_name: str, v_name: str, output_extension='.txt') -> str:
+    # Get bare template file name
+    if '/' in t_name:
+        t_name = t_name.rsplit('/')[1]
+    t_name = t_name.rsplit('.')[0]
+
+    # Get bare variables file name
+    if '/' in v_name:
+        v_name = v_name.rsplit('/')[1]
+    v_name = v_name.rsplit('.')[0]
+
+    # Generate output file name
+    out_name = t_name
+    if t_name != v_name:
+        out_name += '-' + v_name
+    out_name += output_extension
+
+    return out_name
 
 
 def generate(output_name: str, template_name: str, variables_name, delimiter_pre='<', delimiter_post='>') -> None:
