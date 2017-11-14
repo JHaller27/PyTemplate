@@ -1,3 +1,4 @@
+import argparse
 import os
 
 
@@ -9,6 +10,27 @@ def main():
     variables_names = []
 
     # ArgParse setup
+    parser = argparse.ArgumentParser(description='Template-based file generator')
+    parser.add_argument('-i', '--input', default='./',
+                        help='Directory to search for template and variable files')
+    parser.add_argument('-o', '--output', default='./',
+                        help='Directory to write output files to')
+    parser.add_argument('-t', '--template', dest='template_names', action='append',
+                        help='Template files. If omitted, will search for .template files')
+    parser.add_argument('-v', '--variable', dest='variables_names', action='append',
+                        help='Variable files. If omitted, will search for .vars files')
+    parser.add_argument('-e', '--outputext', default='.txt',
+                        help='Output file extension')
+    args = parser.parse_args()
+
+    data_dir += '/' + args.input
+    output_dir += '/' + args.output
+
+    if not os.path.exists(data_dir):
+        os.makedirs(data_dir)
+
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
 
     # Find files if name list is empty
     if len(template_names) == 0:
@@ -20,7 +42,7 @@ def main():
     # Create output files from cross-product of other files
     for t_name in template_names:
         for v_name in variables_names:
-            out_name = get_output_file_name(t_name, v_name)
+            out_name = get_output_file_name(t_name, v_name, args.outputext)
 
             t_name = data_dir + '/' + t_name
             v_name = data_dir + '/' + v_name
