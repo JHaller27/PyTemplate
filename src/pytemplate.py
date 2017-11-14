@@ -3,19 +3,15 @@ import os
 
 
 def main():
-    # Defaults
-    template_names = []
-    variables_names = []
-
     # ArgParse setup
     parser = argparse.ArgumentParser(description='Template-based file generator')
     parser.add_argument('-i', '--input', default='./',
                         help='Directory to search for template and variable files')
-    parser.add_argument('-o', '--output', default='./',
+    parser.add_argument('-o', '--output', default='./out/',
                         help='Directory to write output files to')
-    parser.add_argument('-t', '--template', dest='template_names', action='append',
+    parser.add_argument('-t', '--templates', nargs='*',
                         help='Template files. If omitted, will search for .template files')
-    parser.add_argument('-v', '--variable', dest='variables_names', action='append',
+    parser.add_argument('-v', '--variables', nargs='*',
                         help='Variable files. If omitted, will search for .vars files')
     parser.add_argument('-e', '--outputext', default='.txt',
                         help='Output file extension')
@@ -35,11 +31,15 @@ def main():
         os.makedirs(output_dir)
 
     # Find files if name list is empty
-    if len(template_names) == 0:
+    if args.templates is None:
         template_names = search_for_files(data_dir, '.template')
+    else:
+        template_names = args.templates
 
-    if len(variables_names) == 0:
+    if args.variables is None:
         variables_names = search_for_files(data_dir, '.vars')
+    else:
+        variables_names = args.variables
 
     # Create output files from cross-product of other files
     for t_name in template_names:
@@ -55,12 +55,12 @@ def main():
 def get_output_file_name(t_name: str, v_name: str, output_extension='.txt') -> str:
     # Get bare template file name
     if '/' in t_name:
-        t_name = t_name.rsplit('/')[1]
+        t_name = t_name.rsplit('/')[-1]
     t_name = t_name.rsplit('.')[0]
 
     # Get bare variables file name
     if '/' in v_name:
-        v_name = v_name.rsplit('/')[1]
+        v_name = v_name.rsplit('/')[-1]
     v_name = v_name.rsplit('.')[0]
 
     # Generate output file name
