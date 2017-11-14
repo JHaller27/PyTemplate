@@ -84,6 +84,7 @@ def search_for_files(directory: str, extension: str):
 
 
 def generate(output_name: str, template_name: str, variables_name, delimiter_pre='<', delimiter_post='>') -> None:
+    print("Generating '%s'" % output_name)
     with open(template_name, 'r') as template_file:
 
         # Build replacements dictionary
@@ -94,7 +95,6 @@ def generate(output_name: str, template_name: str, variables_name, delimiter_pre
                 replacements[delimiter_pre + key + delimiter_post] = value
 
         # Output filled-in template
-        print("Generating '%s'" % output_name)
         with open(output_name, 'w') as output_file:
             for line in template_file:
                 for key in replacements:
