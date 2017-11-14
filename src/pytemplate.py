@@ -38,7 +38,7 @@ def main():
     # Find files if name list is empty
     template_names = args.templates if (args.templates is not None)\
         else (search_for_files(data_dir, TEMPLATE_EXTENSION))
-    variables_names = args.templates if (args.variables is not None)\
+    variables_names = args.variables if (args.variables is not None)\
         else (search_for_files(data_dir, VARIABLE_EXTENSION))
 
     # Create output files from cross-product of other files
