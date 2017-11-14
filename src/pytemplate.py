@@ -2,6 +2,11 @@ import argparse
 import os
 
 
+# Pseudo-constants
+TEMPLATE_EXTENSION = '.template'
+VARIABLE_EXTENSION = '.vars'
+
+
 def main():
     # ArgParse setup
     parser = argparse.ArgumentParser(description='Template-based file generator')
@@ -31,15 +36,10 @@ def main():
         os.makedirs(output_dir)
 
     # Find files if name list is empty
-    if args.templates is None:
-        template_names = search_for_files(data_dir, '.template')
-    else:
-        template_names = args.templates
-
-    if args.variables is None:
-        variables_names = search_for_files(data_dir, '.vars')
-    else:
-        variables_names = args.variables
+    template_names = args.templates if (args.templates is not None)\
+        else (search_for_files(data_dir, TEMPLATE_EXTENSION))
+    variables_names = args.templates if (args.variables is not None)\
+        else (search_for_files(data_dir, VARIABLE_EXTENSION))
 
     # Create output files from cross-product of other files
     for t_name in template_names:
