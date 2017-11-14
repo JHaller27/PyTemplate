@@ -4,8 +4,6 @@ import os
 
 def main():
     # Defaults
-    data_dir = '..'
-    output_dir = '..'
     template_names = []
     variables_names = []
 
@@ -21,10 +19,12 @@ def main():
                         help='Variable files. If omitted, will search for .vars files')
     parser.add_argument('-e', '--outputext', default='.txt',
                         help='Output file extension')
+    parser.add_argument('--root', default='./',
+                        help='Root directory')
     args = parser.parse_args()
 
-    data_dir += '/' + args.input
-    output_dir += '/' + args.output
+    data_dir = args.root + args.input
+    output_dir = args.root + args.output
 
     if not os.path.exists(data_dir):
         os.makedirs(data_dir)
