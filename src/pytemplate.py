@@ -19,6 +19,8 @@ def main():
                         help='Variable files. If omitted, will search for .vars files')
     parser.add_argument('-e', '--outputext', default='.txt',
                         help='Output file extension')
+    parser.add_argument('-d', '--delim', nargs=2, default=['<', '>'],
+                        help='Variables in the template file must be of the form "<DELIM><VAR><DELIM>"')
     parser.add_argument('--root', default='./',
                         help='Root directory')
     args = parser.parse_args()
@@ -47,7 +49,7 @@ def main():
             t_name = data_dir + '/' + t_name
             v_name = data_dir + '/' + v_name
             out_name = output_dir + '/' + out_name
-            generate(out_name, t_name, v_name)
+            generate(out_name, t_name, v_name, args.delim[0], args.delim[1])
 
 
 def get_output_file_name(t_name: str, v_name: str, output_extension='.txt') -> str:
