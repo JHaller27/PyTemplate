@@ -74,9 +74,12 @@ def get_output_file_name(t_name: str, v_name: str, output_extension='.txt') -> s
 
 def search_for_files(directory: str, extension: str):
     files = []
+    print("Searching '%s' for %s files..." % (directory, extension))
     for file in os.listdir(directory):
         if file.endswith(extension):
             files.append(file)
+            print("  Found '%s'" % file)
+    print()
     return files
 
 
@@ -91,6 +94,7 @@ def generate(output_name: str, template_name: str, variables_name, delimiter_pre
                 replacements[delimiter_pre + key + delimiter_post] = value
 
         # Output filled-in template
+        print("Generating '%s'" % output_name)
         with open(output_name, 'w') as output_file:
             for line in template_file:
                 for key in replacements:
