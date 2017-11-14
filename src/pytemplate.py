@@ -91,7 +91,8 @@ def generate(output_name: str, template_name: str, variables_name, delimiter_pre
         replacements = {}
         with open(variables_name, 'r') as variables_file:
             for line in variables_file:
-                (key, value) = line.strip().split('=')
+                key = line[0:line.index('=')].strip()
+                value = line[line.index('=')+1:].strip()
                 replacements[delimiter_pre + key + delimiter_post] = value
 
         # Output filled-in template
