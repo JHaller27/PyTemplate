@@ -22,7 +22,7 @@ def main():
                         help='Output file extension')
     parser.add_argument('-d', '--delim', nargs=2, default=['<', '>'],
                         help='Variables in the template file must be of the form "<DELIM><VAR><DELIM>"')
-    parser.add_argument('--root', default='./',
+    parser.add_argument('-r', '--root', default='./',
                         help='Root directory')
     args = parser.parse_args()
 
