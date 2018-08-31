@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import argparse
 import os
 
@@ -9,19 +11,21 @@ VARIABLE_EXTENSION = '.vars'
 
 def main():
     # ArgParse setup
-    parser = argparse.ArgumentParser(description='Template-based file generator')
-    parser.add_argument('-i', '--input', default='./',
-                        help='Directory to search for template and variable files')
-    parser.add_argument('-o', '--output', default='./out/',
-                        help='Directory to write output files to')
+    parser = argparse.ArgumentParser(description='Template-based file generator',
+            formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+
+    parser.add_argument('-i', '--input', default='',
+                        help='Directory to search for template and variable files.')
+    parser.add_argument('-o', '--output', default='out/',
+                        help='Output directory.')
     parser.add_argument('-t', '--templates', nargs='*',
-                        help='Template files. If omitted, will search for .template files')
+                        help='Template files. If omitted, will search for all .template files in the root.')
     parser.add_argument('-v', '--variables', nargs='*',
-                        help='Variable files. If omitted, will search for .vars files')
+                        help='Variable files. If omitted, will search for all .vars files in the root.')
     parser.add_argument('-e', '--outputext', default='.txt',
                         help='Output file extension')
     parser.add_argument('-d', '--delim', nargs=2, default=['<', '>'],
-                        help='Variables in the template file must be of the form "<DELIM><VAR><DELIM>"')
+                        help='Specify the left and right delimiters. Text inside these delimiters will be interpreted as variables to be replaced.')
     parser.add_argument('-r', '--root', default='./',
                         help='Root directory')
     args = parser.parse_args()
