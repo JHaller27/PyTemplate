@@ -2,12 +2,12 @@
 
 The PyTemplate application replaces text in a template file with text set elsewhere in a variables file.
 If multiple template or var files are given as arguments, the resultant file structure would contain
-the cross-product of templates x vars.
+the cross-product of {the set of `.template` files} x {the set of `.vars` files}.
 
 ## Features
 
 | Feature | Planned | In development | Current |
-|:--------|:--------|:---------------|:--------|
+|:--------|:-------:|:--------------:|:-------:|
 | Configurable via command line arguments | | | x |
 | Custom template delimiters (default: "<>") | | | x |
 | Search directory for templates/configs | | | x |
