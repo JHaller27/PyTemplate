@@ -11,21 +11,27 @@ VARIABLE_EXTENSION = '.vars'
 
 def main():
     # ArgParse setup
-    parser = argparse.ArgumentParser(description='Template-based file generator',
+    parser = argparse.ArgumentParser(
+            description='Template-based file generator',
             formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     parser.add_argument('-i', '--input', default='',
-                        help='Directory to search for template and variable files.')
+                        help='Directory to search for template and'
+                        'variable files.')
     parser.add_argument('-o', '--output', default='out/',
                         help='Output directory.')
     parser.add_argument('-t', '--templates', nargs='*',
-                        help='Template files. If omitted, will search for all .template files in the root.')
+                        help='Template files. If omitted, will search for all'
+                        '\'.template\' files in the root.')
     parser.add_argument('-v', '--variables', nargs='*',
-                        help='Variable files. If omitted, will search for all .vars files in the root.')
+                        help='Variable files. If omitted, will search for all'
+                        '\'.vars\' files in the root.')
     parser.add_argument('-e', '--outputext', default='.txt',
                         help='Output file extension')
     parser.add_argument('-d', '--delim', nargs=2, default=['<', '>'],
-                        help='Specify the left and right delimiters. Text inside these delimiters will be interpreted as variables to be replaced.')
+                        help='Specify the left and right delimiters. Text'
+                        'inside these delimiters will be interpreted as'
+                        'variables to be replaced.')
     parser.add_argument('-r', '--root', default='./',
                         help='Root directory')
     args = parser.parse_args()
@@ -49,10 +55,15 @@ def main():
     for t_name in template_names:
         for v_name in variables_names:
             out_name = get_output_file_name(t_name, v_name, args.outputext)
-            generate(output_dir + out_name, data_dir + t_name, data_dir + v_name, args.delim[0], args.delim[1])
+            generate(output_dir + out_name,
+                    data_dir + t_name,
+                    data_dir + v_name,
+                    args.delim[0],
+                    args.delim[1])
 
 
-def get_output_file_name(t_name: str, v_name: str, output_extension='.txt') -> str:
+def get_output_file_name(t_name: str, v_name: str,
+        output_extension='.txt') -> str:
     # Get bare template file name
     if '/' in t_name:
         t_name = t_name.rsplit('/')[-1]
@@ -83,7 +94,8 @@ def search_for_files(directory: str, extension: str):
     return files
 
 
-def generate(output_name: str, template_name: str, variables_name, delimiter_pre='<', delimiter_post='>') -> None:
+def generate(output_name: str, template_name: str, variables_name,
+        delimiter_pre='<', delimiter_post='>') -> None:
     print("Generating '%s'" % output_name)
     with open(template_name, 'r') as template_file:
 
